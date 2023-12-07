@@ -3,7 +3,11 @@
 
 ### Start 30 games
 
-POST {{CodeBreaker.Bot_HostAddress}}/bot/bots
+@numbergames=30
+@delaybetweenGames=1
+@thinktime=1
+
+POST {{CodeBreaker.Bot_HostAddress}}/bot/bots?count={{numbergames}}&delay={{delaybetweenGames}}&thinkTime={{thinktime}}
 Content-Type: application/json
 
 {
@@ -11,3 +15,4 @@ Content-Type: application/json
 }
 
 ###
+http://localhost:5141/bot/bots?count=3&delay=1&thinkTime=1

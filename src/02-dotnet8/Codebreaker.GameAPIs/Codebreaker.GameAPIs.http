@@ -35,7 +35,7 @@ GET {{Codebreaker.GameAPIs_HostAddress}}/games/{{gameid}}
 
 ### Get games by date
 
-GET {{Codebreaker.GameAPIs_HostAddress}}/games/?date=2023-07-13
+GET {{Codebreaker.GameAPIs_HostAddress}}/games/?date=2023-12-07
 
 ### Get games by player
 
