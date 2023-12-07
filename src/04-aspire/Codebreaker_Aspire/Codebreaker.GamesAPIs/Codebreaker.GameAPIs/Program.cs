@@ -32,6 +32,10 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddMetrics();
+
+builder.Services.AddSingleton<GamesMetrics>();
+
 // Application Services
 
 builder.Services.AddSingleton<IGamesRepository, GamesMemoryRepository>();
