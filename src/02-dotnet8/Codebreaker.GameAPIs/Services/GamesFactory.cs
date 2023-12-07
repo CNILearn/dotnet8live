@@ -84,53 +84,43 @@ public static class GamesFactory
     public static Move ApplyMove(this Game game, string[] guesses, int moveNumber)
     {
         static TField[] GetGuesses<TField>(IEnumerable<string> guesses)
-            where TField : IParsable<TField> => 
-            guesses
-                .Select(g => TField.Parse(g, default))
-                .ToArray();
-
-        Move GetColorGameGuessAnalyzerResult()
+                 where TField : IParsable<TField>
         {
-            ColorGameGuessAnalyzer analyzer = new (game, GetGuesses<ColorField>(guesses), moveNumber);
-            ColorResult result = analyzer.GetResult();
-            return new(moveNumber)
-            {
-                GuessPegs = guesses,
-                KeyPegs = result.ToStringResults()
-            };
+            return guesses.Select(g => TField.Parse(g, default)).ToArray();
         }
 
-        Move GetSimpleGameGuessAnalyzerResult()
+        string[] GetColorGameGuessAnalyzerResult()
+        {
+            ColorGameGuessAnalyzer analyzer = new(game, GetGuesses<ColorField>(guesses), moveNumber);
+            return analyzer.GetResult().ToStringResults();
+        }
+
+        string[] GetSimpleGameGuessAnalyzerResult()
         {
             SimpleGameGuessAnalyzer analyzer = new(game, GetGuesses<ColorField>(guesses), moveNumber);
-            SimpleColorResult result = analyzer.GetResult();
-            return new(moveNumber)
-            {
-                GuessPegs = guesses,
-                KeyPegs = result.ToStringResults()
-            };
+            return analyzer.GetResult().ToStringResults();
         }
 
-        Move GetShapeGameGuessAnalyzerResult()
+        string[] GetShapeGameGuessAnalyzerResult()
         {
             ShapeGameGuessAnalyzer analyzer = new(game, GetGuesses<ShapeAndColorField>(guesses), moveNumber);
-            ShapeAndColorResult result = analyzer.GetResult();
-            return new(moveNumber)
-            {
-                GuessPegs = guesses,
-                KeyPegs = result.ToStringResults()
-            };
+            return analyzer.GetResult().ToStringResults();
         }
 
-        Move move = game.GameType switch
+        string[] results = game.GameType switch
         {
             GameTypes.Game6x4 => GetColorGameGuessAnalyzerResult(),
             GameTypes.Game8x5 => GetColorGameGuessAnalyzerResult(),
             GameTypes.Game6x4Mini => GetSimpleGameGuessAnalyzerResult(),
-            GameTypes.Game5x5x4 => GetShapeGameGuessAnalyzerResult(), 
+            GameTypes.Game5x5x4 => GetShapeGameGuessAnalyzerResult(),
             _ => throw new CodebreakerException("Invalid game type") { Code = CodebreakerExceptionCodes.InvalidGameType }
         };
 
+        Move move = new(Guid.NewGuid(), moveNumber)
+        {
+            GuessPegs = guesses,
+            KeyPegs = results
+        };
         game.Moves.Add(move);
         return move;
     }
