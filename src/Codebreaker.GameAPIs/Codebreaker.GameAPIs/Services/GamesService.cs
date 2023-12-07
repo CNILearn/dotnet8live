@@ -27,11 +27,9 @@ public class GamesService(IGamesRepository dataRepository) : IGamesService
     }
 
     // get the game from the cache or the data repository
-    public async ValueTask<Game> GetGameAsync(Guid gameId, CancellationToken cancellationToken = default)
+    public async ValueTask<Game?> GetGameAsync(Guid gameId, CancellationToken cancellationToken = default)
     {
-        var game = await _dataRepository.GetGameAsync(gameId, cancellationToken);
-        CodebreakerException.ThrowIfNull(game);
-        return game;
+        return await _dataRepository.GetGameAsync(gameId, cancellationToken);
     }
 
     public async Task DeleteGameAsync(Guid id, CancellationToken cancellationToken = default)

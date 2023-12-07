@@ -34,14 +34,16 @@ public class GamesMemoryRepository(ILogger<GamesMemoryRepository> logger) : IGam
 
     public Task<IEnumerable<Game>> GetGamesByDateAsync(string gameType, DateOnly date, CancellationToken cancellationToken = default)
     {
-        var games = _games.Values.Where(g => DateOnly.FromDateTime(g.StartTime) == date).ToArray();
-        return Task.FromResult<IEnumerable<Game>>(games);
+        var games = _games.Values
+            .Where(g => DateOnly.FromDateTime(g.StartTime) == date)
+            .Where(g => g.GameType == gameType);
+        return Task.FromResult(games);
     }
 
     public Task<IEnumerable<Game>> GetGamesByPlayerAsync(string playerName, CancellationToken cancellationToken = default)
     {
-        var games = _games.Values.Where(g => g.PlayerName == playerName).ToArray();
-        return Task.FromResult<IEnumerable<Game>>(games);
+        var games = _games.Values.Where(g => g.PlayerName == playerName);
+        return Task.FromResult(games);
     }
 
     public Task AddMoveAsync(Game game, Move move, CancellationToken cancellationToken = default)
