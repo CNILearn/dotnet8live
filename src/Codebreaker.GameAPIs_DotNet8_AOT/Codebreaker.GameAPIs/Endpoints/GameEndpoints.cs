@@ -25,18 +25,13 @@ public static class GameEndpoints
             }
             catch (CodebreakerException ex) when (ex.Code == CodebreakerExceptionCodes.InvalidGameType)
             {
-                GameError error = new(ErrorCodes.InvalidGameType, $"Game type {request.GameType} does not exist", context.Request.GetDisplayUrl(),   Enum.GetNames<GameType>());
+                GameError error = new(ErrorCodes.InvalidGameType, $"Game type {request.GameType} does not exist", context.Request.GetDisplayUrl(), Enum.GetNames<GameType>());
                 return TypedResults.BadRequest(error);
             }
             return TypedResults.Created($"/games/{game.GameId}", game.AsCreateGameResponse());
         })
         .WithName("CreateGame")
-        .WithSummary("Creates and starts a game")
-        .WithOpenApi(op =>
-        {
-            op.RequestBody.Description = "The game type and the player name of the game to create";
-            return op;
-        });
+        .WithSummary("Creates and starts a game");
 
         // Update the game resource with a move
         group.MapPatch("/{gameId:guid}", async Task<Results<Ok<UpdateGameResponse>, NotFound, BadRequest<GameError>>> (
@@ -87,13 +82,7 @@ public static class GameEndpoints
             }
         })
         .WithName("SetMove")
-        .WithSummary("End the game or set a move")
-        .WithOpenApi(op =>
-        {
-            op.Parameters[0].Description = "The id of the game to set a move";
-            op.RequestBody.Description = "The data for creating the move";
-            return op;
-        });
+        .WithSummary("End the game or set a move");
 
         // Get game by id
         group.MapGet("/{gameId:guid}", async Task<Results<Ok<Game>, NotFound>> (
@@ -112,12 +101,7 @@ public static class GameEndpoints
             return TypedResults.Ok(game);
         })
         .WithName("GetGame")
-        .WithSummary("Gets a game by the given id")
-        .WithOpenApi(op =>
-        {
-            op.Parameters[0].Description = "The id of the game to get";
-            return op;
-        });
+        .WithSummary("Gets a game by the given id");
 
         group.MapGet("/", async (
             IGamesService gameService,
@@ -132,15 +116,7 @@ public static class GameEndpoints
                     return TypedResults.Ok(games);
                 })
                 .WithName("GetGames")
-                .WithSummary("Get games based on query parameters")
-                .WithOpenApi(op =>
-                {
-                    op.Parameters[0].Description = "The game type to filter by";
-                    op.Parameters[1].Description = "The player name to filter by";
-                    op.Parameters[2].Description = "The date to filter by";
-                    op.Parameters[3].Description = "Whether to filter by ended games";
-                    return op;
-                });
+                .WithSummary("Get games based on query parameters");
 
         group.MapDelete("/{gameId:guid}", async (
             Guid gameId,
@@ -154,11 +130,6 @@ public static class GameEndpoints
         })
         .WithName("DeleteGame")
         .WithSummary("Deletes the game with the given id")
-        .WithDescription("Deletes a game from the database")
-        .WithOpenApi(op =>
-        {
-            op.Parameters[0].Description = "The id of the game to delete or cancel";
-            return op;
-        });
+        .WithDescription("Deletes a game from the database");
     }
 }
