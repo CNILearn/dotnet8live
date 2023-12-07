@@ -50,6 +50,6 @@ Console.WriteLine("Span");
 byte[] buffer2 = new byte[4];
 
 // Span<byte> span2 = buffer2.AsSpan();
-Span<byte> span2 = [.. buffer2];  // don'T use collection expressions here!
+Span<byte> span2 = [.. buffer2];  // don't use collection expressions with Span!
 span2[0] = 1;
 Console.WriteLine(buffer2[0]);
