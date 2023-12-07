@@ -5,7 +5,7 @@ namespace Codebreaker.GameAPIs.Services;
 internal sealed class GamesMetrics
 {
     public const string MeterName = "Codebreaker.Games";
-    private Meter _meter;
+    private readonly Meter _meter;
     private readonly Counter<long> _gamesStartedCounter;
     private readonly Counter<long> _gamesEndedCounter;
 

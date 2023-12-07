@@ -49,7 +49,6 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-
 app.MapGameEndpoints();
 
 app.Run();
