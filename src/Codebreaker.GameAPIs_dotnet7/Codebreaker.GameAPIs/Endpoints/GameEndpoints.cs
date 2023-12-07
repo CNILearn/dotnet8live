@@ -2,7 +2,6 @@
 
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Codebreaker.GameAPIs.Endpoints;
 
