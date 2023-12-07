@@ -13,14 +13,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // HttpClient & Application Services
-builder.Services.AddHttpClient<GamesClient>(options =>
+builder.Services.AddHttpClient<GamesClient>(client =>
 {
-    string codebreakeruri = builder.Configuration["ApiBase"]
-        ?? throw new InvalidOperationException("ApiBase configuration not available");
-
-    var apiUri = new Uri(codebreakeruri);
-
-    options.BaseAddress = apiUri;
+    client.BaseAddress = new("http://gameapi");
 });
 builder.Services.AddScoped<CodeBreakerTimer>();
 builder.Services.AddScoped<CodeBreakerGameRunner>();
