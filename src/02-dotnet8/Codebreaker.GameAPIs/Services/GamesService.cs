@@ -1,6 +1,6 @@
 ﻿namespace Codebreaker.GameAPIs.Services;
 
-public class GamesService(IGamesRepository dataRepository) : IGamesService
+internal class GamesService(IGamesRepository dataRepository, GamesMetrics gamesMetrics) : IGamesService
 {
     private readonly IGamesRepository _dataRepository = dataRepository;
 
@@ -9,6 +9,8 @@ public class GamesService(IGamesRepository dataRepository) : IGamesService
         Game game = GamesFactory.CreateGame(gameType, playerName);
 
         await _dataRepository.AddGameAsync(game, cancellationToken);
+
+        gamesMetrics.GameStarted();
         return game;
     }
 
@@ -22,6 +24,11 @@ public class GamesService(IGamesRepository dataRepository) : IGamesService
 
         // Update the game in the game-service database
         await _dataRepository.AddMoveAsync(game, move, cancellationToken);
+
+        if (game.Ended())
+        {
+            gamesMetrics.GameEnded();
+        }
 
         return (game, move);
     }

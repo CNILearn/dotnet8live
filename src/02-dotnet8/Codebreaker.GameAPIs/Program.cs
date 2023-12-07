@@ -29,6 +29,10 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddMetrics();
+
+builder.Services.AddSingleton<GamesMetrics>();
+
 // Application Services
 
 builder.Services.AddSingleton<IGamesRepository, GamesMemoryRepository>();
@@ -41,10 +45,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
-        // options.InjectStylesheet("/swagger-ui/swaggerstyle.css");
         options.SwaggerEndpoint("/swagger/v3/swagger.json", "v3");
     });
 }
+
 
 app.MapGameEndpoints();
 

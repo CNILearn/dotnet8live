@@ -1,0 +1,13 @@
+﻿@CodeBreaker.Bot_HostAddress = http://localhost:5141
+
+
+### Start 30 games
+
+POST {{CodeBreaker.Bot_HostAddress}}/bot/bots
+Content-Type: application/json
+
+{
+
+}
+
+###
