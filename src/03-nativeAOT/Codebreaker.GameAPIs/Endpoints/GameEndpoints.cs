@@ -107,7 +107,7 @@ public static class GameEndpoints
             IGamesService gameService,
             CancellationToken cancellationToken,
             bool ended,
-            string ? gameType = default,
+            string? gameType = default,
             string? playerName = default,
             DateOnly? date = default) =>
                 {

@@ -5,23 +5,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
-    <LangVersion>preview</LangVersion>
     <PublishAot>True</PublishAot>
-    <PublishTrimmed>True</PublishTrimmed>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Endpoints\GameEndpoints1.cs" />
-    <None Include="Endpoints\GameEndpoints1.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Endpoints\GameEndpoints2.cs" />
-    <None Include="Endpoints\GameEndpoints2.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Codebreaker.GameAPIs.Models\Codebreaker.GameAPIs.Models.csproj" />
+    <PackageReference Include="CNinnovation.Codebreaker.BackendModels" Version="3.5.0-beta.17" />
   </ItemGroup>
 
 </Project>
