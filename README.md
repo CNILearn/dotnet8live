@@ -6,6 +6,10 @@ In dieser Session lernst du die wichtigsten C#-Erweiterungen wie z. B. Primary C
 
 In welchen Szenarien du diese Funktionalität nutzten kannst, wird im Rahmen dieses Fullstack Live-Events gezeigt.
 
+## Slides
+
+[Dotnet 8 is here!](slides/Dotnet8Live.pdf)
+
 ## Topics
 
 - C# 12
