@@ -2,6 +2,11 @@
 
 namespace CodeBreaker.Bot;
 
+/// <summary>
+/// Represents a key peg with its value and usage flag.
+/// </summary>
+/// <param name="Value">The value of the key peg.</param>
+/// <param name="Used">The flag indicating whether the key peg has been used in the algorithm.</param>
 public record struct KeyPegWithFlag(int Value, bool Used);
 
 public static class CodeBreakerAlgorithms
