@@ -20,12 +20,11 @@ internal static class MyCustomCollection
 #pragma warning disable IDE0028 // Simplify collection initialization
         // results in recursive invocations https://github.com/dotnet/roslyn/issues/70099
         MyCustomCollection<T> collection = new();
-#pragma warning restore IDE0028 // Simplify collection initialization
         foreach (T item in items)
         {
             collection.Add(item);
         }
-
+#pragma warning restore IDE0028 // Simplify collection initialization
         return collection;
     }
 }
